@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import '../../../data/album.dart';
 // import 'package:music_app/util/httpController.dart';
-import 'package:http/http.dart' as http;
-
+// import 'package:http/http.dart' as http;
+import 'package:dio/dio.dart';
 import 'dart:convert';
-import 'dart:io';
+// import 'dart:io';
 import 'dart:async';
 import 'package:music_app/data/songInfo.dart';
-// import 'package:audioplayers/audioplayers.dart';
-import 'package:audioplayer/audioplayer.dart';
+import 'package:audioplayers/audioplayers.dart';
+// import 'package:audioplayer/audioplayer.dart';
+import '../../songPage/song.dart';
 class AlbumList extends StatefulWidget {
   final List<SongList> songList;
   AlbumList(this.songList);
@@ -18,7 +19,10 @@ class AlbumList extends StatefulWidget {
 class _AlbumListState extends State<AlbumList> {
   AudioPlayer audioPlayer = new AudioPlayer();
   String res;
+  Response response;
+  Dio dio = new Dio();
   List<String> songmid = [];
+  List<UrlInfo> songinfo = [];
   List<int> songtype = [];
   dynamic comm = {
     "g_tk":5381,
@@ -37,18 +41,17 @@ class _AlbumListState extends State<AlbumList> {
           "module":"vkey.GetVkeyServer",
           "method":"CgiGetVkey",
           "param":{
-              "guid":"3441935786",
+              "guid":"1946938565",
               "songmid": list,
               "songtype":list1,
               "uin":"0",
               "loginflag":0,
               "platform":"23"
           }
-      
     };
     obj = {
       'comm': obj1,
-      'url_mid': temp
+      'req_0': temp
     };
     return obj;
   }
@@ -66,15 +69,15 @@ class _AlbumListState extends State<AlbumList> {
     }
   }
 
-  // play(url) async {
-  //   int result = await audioPlayer.play(url);
-  //   if (result == 1) {
-  //     // success
-  //     print('success');
-  //   } else {
-  //     print('false');
-  //   }
-  // }
+  play(url) async {
+    int result = await audioPlayer.play(url);
+    if (result == 1) {
+      // success
+      print('success');
+    } else {
+      print('false');
+    }
+  }
 
   getkey() {
     widget.songList.forEach((item){
@@ -85,13 +88,24 @@ class _AlbumListState extends State<AlbumList> {
 
   _loadsongUrl () async{
     await apiRequest('http://ustbhuangyi.com/music/api/getPurlUrl',getParam(songmid , songtype, comm));
-    final jsonRes = json.decode(res);
+    // print(getParam(songmid , songtype, comm));
+    // print(songmid);
+    // print(songtype);
+    print(res);
+    // var str = res.substring(7, res.length);
+    // print(str);
+    final jsonRes = jsonDecode(res);
     SongInfo info = new SongInfo.fromJson(jsonRes);
-    await audioPlayer.play(
-      info.urlMid.data.midurlinfo[0].purl
-    );
-    print(info.urlMid.data.midurlinfo[0].purl);
-    print('--------');
+    // await audioPlayer.play(
+    //   info.req.data.midurlinfo[0].purl
+    // );
+    // print(info.req.data.midurlinfo[0].purl);
+    setState(() {
+      songinfo = info.req.data.midurlinfo;
+    });
+    // print('--------');
+    // print(songinfo.length);
+    // print(widget.songList.length);
     // play(info.urlMid.data.midurlinfo[0].purl);
    
 
@@ -99,19 +113,25 @@ class _AlbumListState extends State<AlbumList> {
 
 
   // post请求
-  Future<String> apiRequest(String url, Map jsonMap) async {
-    HttpClient httpClient = new HttpClient();
-    HttpClientRequest request = await httpClient.postUrl(Uri.parse(url));
-    request.headers.set('content-type', 'application/json');
-    request.add(utf8.encode(json.encode(jsonMap)));
-    HttpClientResponse response = await request.close();
-    // todo - you should check the response.statusCode
-    String reply = await response.transform(utf8.decoder).join();
-    httpClient.close();
+  Future<Response> apiRequest(String url, Map jsonMap) async {
+    // HttpClient httpClient = new HttpClient();
+    // HttpClientRequest request = await httpClient.postUrl(Uri.parse(url));
+    // request.headers.set('content-type', 'application/json');
+    // request.add(utf8.encode(json.encode(jsonMap)));
+    // print(json.encode(jsonMap));
+    // HttpClientResponse response = await request.close();
+    // // todo - you should check the response.statusCode
+    // String reply = await response.transform(utf8.decoder).join();
+    // httpClient.close();
+    
+    response = await dio.post(url, data: json.encode(jsonMap));
     setState(() {
-      res = reply;
+      // res = response.data.toString();
+      res = response.toString();
     });
-    return reply;
+    // print(response.data.toString());
+    // print(response.toString());
+    return response;
   }
 
   Widget listViewDefault(List<SongList> list) {
@@ -120,7 +140,8 @@ class _AlbumListState extends State<AlbumList> {
     for (int i = 0; i < list.length; i++) {
       _list.add(
          new GestureDetector(
-           onTap: () => print('123'),
+          //  onTap: () => print(songinfo[i].purl),
+          onTap: () => Navigator.of(context).push(new MaterialPageRoute(builder: (BuildContext context,) => new SongPage(songinfo[i].purl, list[i].songname))),
            child:new Container(
               padding: const EdgeInsets.fromLTRB(30.0, 10.0, 0.0, 10.0),
               decoration: new BoxDecoration(

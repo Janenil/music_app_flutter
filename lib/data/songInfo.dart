@@ -1,19 +1,19 @@
 class SongInfo {
   int code;
   int ts;
-  Info urlMid;
+  Info req;
 
   SongInfo({
     this.code,
     this.ts,
-    this.urlMid
+    this.req
   });
 
   factory SongInfo.fromJson(Map<String,dynamic> parsedJson) {
     return SongInfo(
       code: parsedJson['code'],
       ts: parsedJson['ts'],
-      urlMid: Info.fromJson(parsedJson['url_mid'])
+      req: Info.fromJson(parsedJson['req_0'])
     );
   }
 }
@@ -108,6 +108,7 @@ class UrlInfo {
   String opi192koggurl;
   String opi192kurl;
   String opi48kurl;
+  String opi30surl;
   String opi96kurl;
   String opiflackurl;
   int p2pfromtag;
@@ -142,6 +143,7 @@ class UrlInfo {
     this.opi192koggurl,
     this.opi192kurl,
     this.opi48kurl,
+    this.opi30surl,
     this.opi96kurl,
     this.opiflackurl,
     this.p2pfromtag,
@@ -174,6 +176,7 @@ class UrlInfo {
       onecan: parsedJson['onecan'],
       opi128kurl: parsedJson['opi128kurl'],
       opi192koggurl: parsedJson['opi192koggurl'],
+      opi30surl: parsedJson['opi30surl'],
       opi192kurl: parsedJson['opi192kurl'],
       opi48kurl: parsedJson['opi48kurl'],
       opi96kurl: parsedJson['opi96kurl'],

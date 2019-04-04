@@ -194,7 +194,7 @@ class ItemState extends State<BannerItem> {
   @override
   Widget build(BuildContext context) {
     return CachedNetworkImage(
-      placeholder: Container(
+      placeholder: (context, url) =>  Container(
         height: 160.0,
         width: double.infinity,
         color: Colors.black38,

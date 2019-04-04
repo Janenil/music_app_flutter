@@ -18,15 +18,16 @@ dependencies:
   
   intl: "0.15.7" #本地
   carousel_slider: ^1.0.1
-  cached_network_image: ^0.4.1
+  cached_network_image: ^0.7.0
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.2
   http: "^0.11.3+16"
   shared_preferences: "^0.4.3" #sp文件
-  # audioplayers: "^0.8.0" #音频播放
-  audioplayer: "^0.5.2"
+  audioplayers: "^0.10.1" #音频播放
+  # audioplayer: "^0.5.2"
+  dio: "^2.1.0"  #latest version
 
 
 dev_dependencies:

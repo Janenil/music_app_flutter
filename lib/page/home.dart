@@ -9,14 +9,12 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin {
-
-
   Widget build(BuildContext context) {
     return new MaterialApp(
       home: new Scaffold (
         appBar: AppBar(
           title: new Text(
-            'Music App',
+            'Yinyue App',
             style: TextStyle(color: Colors.yellow),
           ),
           backgroundColor: Colors.black,
