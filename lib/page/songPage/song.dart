@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:audioplayers/audioplayers.dart';
 class SongPage extends StatefulWidget {
   final String songUrl;
   final String songname;
@@ -8,10 +8,27 @@ class SongPage extends StatefulWidget {
 }
 
 class _SongPageState extends State<SongPage> {
+
+  AudioPlayer audioPlayer = new AudioPlayer();
+  
+  void initState() {
+    // AudioPlayer.logEnabled = true;
+    super.initState();
+    print(widget.songUrl);
+    playThisMusic();
+  }
+
+  playThisMusic() {
+    audioPlayer.play(
+      widget.songUrl
+    );
+  }
+  stopThisMusic() {
+    audioPlayer.pause();
+  }
+  
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Welcome to Flutter',
-      home:  new Scaffold(
+    return  new Scaffold(
         appBar: new AppBar(
           title: new Text(widget.songname,
             style: TextStyle(
@@ -20,9 +37,13 @@ class _SongPageState extends State<SongPage> {
           ),
           backgroundColor: Colors.black,
         ),
-        body: new Column(
-
-        )
+        body: new Center(
+          child: new IconButton(
+            icon: Icon(Icons.stop),
+            onPressed: () {
+              stopThisMusic();
+            },
+          ),
         )
     );
  

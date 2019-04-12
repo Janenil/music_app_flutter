@@ -100,10 +100,10 @@ class _AlbumListState extends State<AlbumList> {
     //   info.req.data.midurlinfo[0].purl
     // );
     // print(info.req.data.midurlinfo[0].purl);
+    
     setState(() {
       songinfo = info.req.data.midurlinfo;
     });
-    // print('--------');
     // print(songinfo.length);
     // print(widget.songList.length);
     // play(info.urlMid.data.midurlinfo[0].purl);
@@ -141,7 +141,7 @@ class _AlbumListState extends State<AlbumList> {
       _list.add(
          new GestureDetector(
           //  onTap: () => print(songinfo[i].purl),
-          onTap: () => Navigator.of(context).push(new MaterialPageRoute(builder: (BuildContext context,) => new SongPage(songinfo[i].purl, list[i].songname))),
+          onTap: () => Navigator.of(context).push(new MaterialPageRoute(builder: (BuildContext context,) => new SongPage('https' + songinfo[i].purl.substring(4,songinfo[i].purl.length), list[i].songname))),
            child:new Container(
               padding: const EdgeInsets.fromLTRB(30.0, 10.0, 0.0, 10.0),
               decoration: new BoxDecoration(

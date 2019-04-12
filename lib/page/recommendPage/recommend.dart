@@ -26,7 +26,7 @@ class _RecommendState extends State<Recommend> {
   }
 
   _formatUrl() {
-    return 'https://c.y.qq.com/musichall/fcgi-bin/fcg_yqqhomepagerecommend.fcg?g_tk=1928093487&inCharset=utf-8&outCharset=utf-8&notice=0&format=jsonp&platform=h5&uin=0&needNewCode=1&jsonpCallback=jp0';
+    return 'http://c.y.qq.com/musichall/fcgi-bin/fcg_yqqhomepagerecommend.fcg?g_tk=1928093487&inCharset=utf-8&outCharset=utf-8&notice=0&format=jsonp&platform=h5&uin=0&needNewCode=1&jsonpCallback=jp0';
   }
 
   _hotKeyUrl() {
@@ -45,19 +45,22 @@ class _RecommendState extends State<Recommend> {
     pro.data.slider.forEach((item){
       data.add(new Model(imgUrl: item.picUrl));
     });
-    setState(() {
-      data = data;
-    });
-
+    if (this.mounted){
+      setState(() {
+        data = data;
+      });
+    }
     http.Response _response = await http.get(_hotKeyUrl());
     final _jsonRes = json.decode(_response.body);
     ListProperty proList = new ListProperty.fromJson(_jsonRes);
     proList.data.list.forEach((item) {
       _data.add(item);
     });
-    setState(() {
-      _data = _data;
-    });
+    if (this.mounted){
+      setState(() {
+        _data = _data;
+      });
+    }
   }
   
    List<Widget> listMyWidgets() {

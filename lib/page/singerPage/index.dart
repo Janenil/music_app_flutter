@@ -47,10 +47,12 @@ class _SingerListState extends State<SingerList> {
       // print(str.substring(str.length-5, str.length));
       final jsonRes = json.decode(str);
       Singer singer = new Singer.fromJson(jsonRes);
-      setState(() {
-        singerList = singer.data.list;
-      });
-      print(singerList[0].fsingername);
+      if (this.mounted) {
+        setState(() {
+          singerList = singer.data.list;
+        });
+        print(singerList[0].fsingername);
+      }
     });
   }
 

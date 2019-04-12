@@ -14,7 +14,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
       home: new Scaffold (
         appBar: AppBar(
           title: new Text(
-            'Yinyue App',
+            'dfffff App',
             style: TextStyle(color: Colors.yellow),
           ),
           backgroundColor: Colors.black,
@@ -26,6 +26,17 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
               onPressed: () => Navigator.of(context).push(new MaterialPageRoute(builder: (BuildContext context) => new OtherPage('我的'))),// 路由个人中心页面,
             ),
           ],
+          // bottom: new PreferredSize(
+          //   preferredSize: const Size.fromHeight(48.0),
+          //   child: new Theme(
+          //     data: Theme.of(context).copyWith(accentColor: Colors.white),
+          //     child: new Container(
+          //       height: 48.0,
+          //       alignment: Alignment.center,
+          //       child: new Text('123',style: TextStyle(color: Colors.yellow),),
+          //     ),
+          //   ),
+          // ),
         ),
         body: new PageOne(),
         )
