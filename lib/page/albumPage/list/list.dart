@@ -141,7 +141,7 @@ class _AlbumListState extends State<AlbumList> {
       _list.add(
          new GestureDetector(
           //  onTap: () => print(songinfo[i].purl),
-          onTap: () => Navigator.of(context).push(new MaterialPageRoute(builder: (BuildContext context,) => new SongPage('https' + songinfo[i].purl.substring(4,songinfo[i].purl.length), list[i].songname))),
+          onTap: () => Navigator.of(context).push(new MaterialPageRoute(builder: (BuildContext context,) => new SongPage('https${songinfo[i].purl.substring(4,songinfo[i].purl.length)}', list[i].songname, list[i]))),
            child:new Container(
               padding: const EdgeInsets.fromLTRB(30.0, 10.0, 0.0, 10.0),
               decoration: new BoxDecoration(
