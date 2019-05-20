@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
-import '../../data/recommendList.dart';
-import 'package:music_app/util/httpController.dart';
-import '../../data/album.dart';
+// import '../../data/recommendList.dart';
+// import 'package:music_app/util/httpController.dart';
+// import '../../data/album.dart';
 import '../../data/singerlist.dart';
 import 'dart:convert';
 import './list/list.dart';
 
 import 'package:http/http.dart' as http;
-import 'dart:convert';
 import './data.dart';
 class AlbumPage extends StatefulWidget {
   final SingerObj obj; 

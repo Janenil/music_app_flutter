@@ -23,7 +23,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
               icon: Icon(Icons.accessibility),
               color: Colors.yellow,
               // onPressed: () => _loadDataFromNetwork(),
-              onPressed: () => Navigator.of(context).push(new MaterialPageRoute(builder: (BuildContext context) => new OtherPage('我喜欢的音乐'))),// 路由个人中心页面,
+              onPressed: () => Navigator.of(context).push(new MaterialPageRoute(builder: (BuildContext context) => new OtherPage('用户中心'))),// 路由个人中心页面,
             ),
           ],
           // bottom: new PreferredSize(
