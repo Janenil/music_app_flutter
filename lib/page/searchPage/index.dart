@@ -61,7 +61,7 @@ class _SearchListState extends State<SearchList> {
 
   var a = '1';
   handlesome(value) {
-    print(value);
+    // print(value);
     setState(() {
       a = value;
     });
@@ -75,7 +75,7 @@ class _SearchListState extends State<SearchList> {
   }
   Widget _contentTop() {
     print('----1-----');
-    print(widget.hotkeylist.length);
+    // print(widget.hotkeylist.length);
       if (_results.length != 0) {
 
         return new Flexible(
@@ -92,7 +92,7 @@ class _SearchListState extends State<SearchList> {
         List<Widget> tList = [];
         Widget content;
         widget.hotkeylist.asMap().forEach((key,f) {
-          print(f);
+          // print(f);
           tList.add(
             new Container(
               padding: EdgeInsets.fromLTRB(8.0, 2.0, 8.0, 2.0),

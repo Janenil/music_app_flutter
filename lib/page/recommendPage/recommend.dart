@@ -106,6 +106,7 @@ class _RecommendState extends State<Recommend> {
               Container(
                 padding: const EdgeInsets.fromLTRB(20.0, 5.0,0.0,10.0),
                 height: 100.0,
+                width: 250.0,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -118,6 +119,8 @@ class _RecommendState extends State<Recommend> {
                     ),
                     new Text(
                       item.dissname,
+                      overflow: TextOverflow.ellipsis,
+                      softWrap: false,
                       style: TextStyle(
                         color: Colors.grey
                       ),

@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:audioplayers/audioplayers.dart';
 import '../../data/album.dart';
+import '../singersOnePage/data.dart';
 import 'dart:ui';
 import './lyric/getLyric.dart';
 import './player/index.dart';
 class SongPage extends StatefulWidget {
   final String songUrl;
   final String songname;
-  final SongList list;
-  SongPage(this.songUrl,this.songname, this.list);
+  final SongInstance list;
+  final String singername;
+  SongPage(this.songUrl,this.songname, this.list,this.singername);
   _SongPageState createState() => new _SongPageState();
 }
 
@@ -16,7 +18,7 @@ class _SongPageState extends State<SongPage> {
   bool isSongPage = true;
   String url;
   String name;
-  SongList _list;
+  SongInstance _list;
   AudioPlayer audioPlayer = new AudioPlayer();
   void initState() {
     // AudioPlayer.logEnabled = true;
@@ -35,7 +37,6 @@ class _SongPageState extends State<SongPage> {
   }
   onNext() {
     print('next');
-    // Navigator.of(context).push(new MaterialPageRoute(builder: (BuildContext context,) => new SongPage('https${songinfo[i].purl.substring(4,songinfo[i].purl.length)}', list[i].songname, list[i])))
     setState(() {
       url =  'https://dl.stream.qqmusic.qq.com/C400002McnY72XZVaG.m4a?guid=1946938565&vkey=A80A3B0B841BE25BD25E6E0F3BCDA382DC5561AF973D989BC1E10031CDF888318B19B3085B73D76928D566A0F1CFE678B59BF25EA561A1AF&uin=0&fromtag=38';
       name = '123';
@@ -68,7 +69,7 @@ class _SongPageState extends State<SongPage> {
               width: 10, //                   <--- border width here
             ),
             image: new DecorationImage(
-              image: new NetworkImage('https://y.gtimg.cn/music/photo_new/T002R300x300M000${widget.list.albummid}.jpg?max_age=2592000'),
+              image: new NetworkImage('https://y.gtimg.cn/music/photo_new/T002R300x300M000${widget.list.musicData.albummid}.jpg?max_age=2592000'),
               fit: BoxFit.cover,
             ),
           ),
@@ -141,7 +142,7 @@ class _SongPageState extends State<SongPage> {
               decoration: new BoxDecoration(
                 image: new DecorationImage(
                   image: new NetworkImage(
-                    'https://y.gtimg.cn/music/photo_new/T002R300x300M000${widget.list.albummid}.jpg?max_age=2592000'
+                    'https://y.gtimg.cn/music/photo_new/T002R300x300M000${widget.list.musicData.albummid}.jpg?max_age=2592000'
                   ),
                   fit: BoxFit.cover,
                   colorFilter: new ColorFilter.mode(
@@ -170,7 +171,7 @@ class _SongPageState extends State<SongPage> {
                   child: new Container(
                     padding: const EdgeInsets.all(10.0),
                     child: new Text(
-                      widget.list.singer[0].name,
+                      widget.singername,
                       style: TextStyle(
                         color: Colors.yellow,
                         fontSize: 16.0,
