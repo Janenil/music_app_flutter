@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import '../../data/topList.dart';
+import '../topAlbumPage/index.dart';
 class TopList extends StatefulWidget {
   final List<ListObj> topAllList;
   TopList(
@@ -22,7 +23,9 @@ class _TopListState extends State<TopList> {
         widget.topAllList.asMap().forEach((key,f) {
       // print(f.picUrl);
       tList.add(
-        new Container(
+       new GestureDetector(
+         onTap: ()=>Navigator.of(context).push(new MaterialPageRoute(builder: (BuildContext context,) => new AlbumPage(f))),
+         child:  new Container(
           decoration: new BoxDecoration(
             color: Colors.black,
             boxShadow: [
@@ -84,6 +87,8 @@ class _TopListState extends State<TopList> {
             ],
           ),
         )
+      ,
+       )
       );
     });
     }

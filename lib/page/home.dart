@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import './mainPage/main_page.dart';
 import './other_page.dart';
+import '../util/eventBus.dart';
+
 // import 'dart:convert';
 // import '../util/httpController.dart';
 
@@ -9,6 +11,20 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin {
+  String data = '999999';
+  void initState() {
+    super.initState();
+    eventBus.on<MyEvent>().listen((MyEvent data) =>
+      show(data.text)
+    );
+  }
+  void show(String val) {
+    setState(() {
+      data= val;
+    });
+    print(data);
+  }
+
   Widget build(BuildContext context) {
     return new MaterialApp(
       home: new Scaffold (
@@ -23,7 +39,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
               icon: Icon(Icons.accessibility),
               color: Colors.yellow,
               // onPressed: () => _loadDataFromNetwork(),
-              onPressed: () => Navigator.of(context).push(new MaterialPageRoute(builder: (BuildContext context) => new OtherPage('用户中心'))),// 路由个人中心页面,
+              onPressed: () => Navigator.of(context).push(new MaterialPageRoute(builder: (BuildContext context) => new OtherPage(data))),// 路由个人中心页面,
             ),
           ],
           // bottom: new PreferredSize(

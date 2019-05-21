@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:audioplayers/audioplayers.dart';
-import '../../../data/album.dart';
 import '../lyric/getLyric.dart';
 import './lyricItem.dart';
 import '../lyric/lyric.dart';
 import '../../../util/eventBus.dart';
-
+import '../../topAlbumPage/data.dart';
 // import '../song.dart';
 class Player extends StatefulWidget{
   // final String audioUrl;
@@ -29,7 +28,7 @@ class Player extends StatefulWidget{
 
   final String songUrl;
   final String songname;
-  final SongList list;
+  final TopSongList list;
   
   Player({
     this.songUrl,
@@ -102,7 +101,7 @@ class _PlayerState extends State<Player> {
     );
     playThisMusic();
     Utils.getLyricFromTxt(
-      "https://music.niubishanshan.top/api/v2/music/lrc/${widget.list.songid}"
+      "https://music.niubishanshan.top/api/v2/music/lrc/${widget.list.data.songid}"
     ).then((Lyric lyric) {
       this.lyric = lyric;
       panel = new LyricPanel(this.lyric);
@@ -200,7 +199,7 @@ class _PlayerState extends State<Player> {
               color: Colors.yellow,
               onPressed: () => {
                 // Navigator.of(context).push(new MaterialPageRoute(builder: (BuildContext context,) => new SongPage(widget.songUrl, widget.songname, widget.list))),
-                eventBus.fire(new MyEvent('123', [widget.list]))
+                eventBus.fire(new MyEvent('123', []))
                 // print(widget.list)
               },
             ),

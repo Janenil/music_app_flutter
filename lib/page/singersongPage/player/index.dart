@@ -126,29 +126,6 @@ class _PlayerState extends State<Player> {
         return;
       } 
     });
-    // audioPlayer
-    //   ..completionHandler = widget.onCompleted
-    //   ..errorHandler = widget.onError
-    //   ..durationHandler = ((duration) {
-    //     setState(() {
-    //       this.duration = duration;
-    //       if (position != null) {
-    //         this.sliderValue = (position.inSeconds / duration.inSeconds);
-    //       }
-    //     });
-    //   })
-    //   ..positionHandler = ((position) {
-    //     setState(() {
-    //       this.position = position;
-    //       if (panel != null) {
-    //         panel.handler(position.inSeconds);
-    //       }
-
-    //       if (duration != null) {
-    //         this.sliderValue = (position.inSeconds / duration.inSeconds);
-    //       }
-    //     });
-    //   });
   }
 
 

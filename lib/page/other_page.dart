@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import './register/index.dart';
+import './favouriteList/index.dart';
 import './login/index.dart';
+
+import '../util/eventBus.dart';
+import '../data/album.dart';
 class OtherPage extends StatefulWidget {
 
-  final String pageText;    //定义一个常量，用于保存跳转进来获取到的参数
-  OtherPage(this.pageText);    //构造函数，获取参数
+  final String id;    //定义一个常量，用于保存跳转进来获取到的参数
+  OtherPage(this.id);    //构造函数，获取参数
   _OtherPageState createState() => new _OtherPageState();
 }
   // final items = new List<ListItem>.generate(
@@ -14,18 +18,36 @@ class OtherPage extends StatefulWidget {
   //         : new MessageItem("Sender $i", "Message body $i"),
   //   );
 
+
 class _OtherPageState extends State<OtherPage> {
-  bool isLogin = true;
-  @override
-  Widget build(BuildContext context) {
-    return new Scaffold(
-      appBar: new AppBar(
-        title: new Text(widget.pageText,
-            style: TextStyle(color: Colors.yellow),
-            ),
-        backgroundColor: Colors.black,
-      ),    //将参数当作页面标题
-      body: new Container(
+  List<SongList> list;
+
+  void initState() {
+    super.initState();
+    eventBus.on<MyEvent>().listen((MyEvent data) =>
+      show(data.list)
+    );
+  }
+  void show(List<SongList> val) {
+    if (this.mounted) {
+      setState(() {
+        list = val;
+      });
+      print('----123-----');
+      print(list.length);
+    }
+  }
+  String _id = '999999';
+  handleChange() {
+    setState(() {
+      _id = '123';
+    });
+  }
+  Widget content() {
+    if (widget.id != '999999' || _id != '999999' ) {
+      return new Favour();
+    } else {
+      return new Container(
         decoration: new BoxDecoration(
           color: Colors.black
         ),
@@ -36,7 +58,7 @@ class _OtherPageState extends State<OtherPage> {
                   color: Colors.yellow, 
                   fontSize: 18.0),
                 ),
-              isLogin == true ? new Login() : new Register(),
+              isLogin == true ? new Login(handleChange) : new Register(),
               new GestureDetector(
                 onTap: () => setState((){
                    isLogin ?  isLogin = false : isLogin = true;
@@ -46,7 +68,22 @@ class _OtherPageState extends State<OtherPage> {
               )
             ],
           ),
-      )
+      ); 
+    }
+    
+  }
+  bool isLogin = true;
+  @override
+  Widget build(BuildContext context) {
+    return new Scaffold(
+      appBar: new AppBar(
+        title: new Text("用户中心",
+            style: TextStyle(color: Colors.yellow),
+            ),
+        backgroundColor: Colors.black,
+      ),    //将参数当作页面标题
+      body:  content()
+      
     );
   }
 }

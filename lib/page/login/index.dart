@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-
-
+import '../../util/eventBus.dart';
+import '../../data/album.dart';
 
 class Login extends StatefulWidget {
+  Function change;
+  Login(this.change);
   _LoginState createState() => new _LoginState();
 }
 
@@ -11,12 +13,13 @@ class _LoginState extends State<Login> {
   final _searchControll1 = new TextEditingController();
   String username;
   String pwd;
+  
 
   handlePress() {
-    print(username);
-    print(pwd);
     if (username != null && pwd != null) {
         // 掉接口
+      eventBus.fire(new MyEvent('555',[]));
+      widget.change();
       Scaffold.of(context).showSnackBar(new SnackBar(
           content: new Text("登陆成功"),
         ));
@@ -25,8 +28,6 @@ class _LoginState extends State<Login> {
         content: new Text("请填写用户名和密码"),
       ));
     }
-    
-
   }
   Widget build(BuildContext context) {
     return new Container(
